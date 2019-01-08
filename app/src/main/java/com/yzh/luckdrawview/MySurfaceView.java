@@ -57,6 +57,18 @@ public class MySurfaceView extends SurfaceView {
 
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                Canvas canvas = getHolder().lockCanvas();
+                if (canvas != null) {
+                    canvas.drawColor(Color.BLACK);
+                    synchronized (this) {
+                        changeText(mText);
+                        canvas.save();
+                        canvas.setMatrix(mMatrix);
+                        mTextView.draw(canvas);
+                        canvas.restore();
+                    }
+                }
+                getHolder().unlockCanvasAndPost(canvas);
                 mStart = true;
                 new Thread() {
                     @Override
@@ -82,18 +94,6 @@ public class MySurfaceView extends SurfaceView {
                     }
                 }.start();
 
-                Canvas canvas = getHolder().lockCanvas();
-                if (canvas != null) {
-                    canvas.drawColor(Color.BLACK);
-                    synchronized (this) {
-                        changeText(mText);
-                        canvas.save();
-                        canvas.setMatrix(mMatrix);
-                        mTextView.draw(canvas);
-                        canvas.restore();
-                    }
-                }
-                getHolder().unlockCanvasAndPost(canvas);
             }
 
             @Override
