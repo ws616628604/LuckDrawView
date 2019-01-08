@@ -63,7 +63,6 @@ public class MySurfaceView extends SurfaceView {
                     public void run() {
                         boolean add = true;
                         while (mStart) {
-                            long time = System.currentTimeMillis();
                             if (add) {
                                 mRadius = mRadius + mSpeed;
                                 if (mRadius > mMaxRadius) {
@@ -75,16 +74,6 @@ public class MySurfaceView extends SurfaceView {
                                     add = true;
                                 }
                             }
-                            while (System.currentTimeMillis() - time < 33) {
-                                Thread.yield();
-                            }
-                        }
-                    }
-                }.start();
-                new Thread() {
-                    @Override
-                    public void run() {
-                        while (mStart) {
                             drawCircle();
                             while (System.currentTimeMillis() - mLastTime < 33) {
                                 Thread.yield();
@@ -252,7 +241,6 @@ public class MySurfaceView extends SurfaceView {
                 mCoordinates.add(new Coordinate(x, y, mColors[i % mColors.length]));
             }
         }
-        drawCircle();
 
         return true;
     }
