@@ -299,7 +299,7 @@ public class MySurfaceView extends SurfaceView {
                         mSelectIndex = i % size;
                     }
                     long timeMillis = System.currentTimeMillis();
-                    while (System.currentTimeMillis() - timeMillis < 250) {
+                    while (System.currentTimeMillis() - timeMillis < 200) {
                         if (!mStop) {
                             return;
                         }
